@@ -68,13 +68,11 @@ def optmparsing():
 
 
 def shipdone(orderRst, carList, default):
-    # print("createShipDone")
-    # data = '37.551256166892486'
-    # print(encrypt(data))
     print(orderRst)
     print(carList)
     key = ["shipVisitNo", "orderDetlId", "orderDestNm", "posLat", "posLon"]
     shipDoneItemList = "shipDoneItemList"
+    shipDoneMerge = []
 
     for car in carList:
         shipDone = []
@@ -98,10 +96,15 @@ def shipdone(orderRst, carList, default):
                     shipDic.update({shipDoneItemList: item[shipDoneItemList]})
 
             shipDone.append(shipDic)
-
         carShipFile = str(shipDoneItemList) + "_" + car
         with open(carShipFile, 'w', encoding="utf-8") as f:
             json.dump(shipDone, f, ensure_ascii=False, indent="\t")
+
+        shipDoneMerge.append(shipDone)
+
+    shipDoneMergeFile = "shipDoneMerge.json"
+    with open(shipDoneMergeFile, 'w', encoding="utf-8") as f:
+        json.dump(shipDoneMerge, f, ensure_ascii=False, indent="\t")
 
 
 if __name__ == '__main__':
